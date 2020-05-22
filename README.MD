@@ -1,0 +1,1 @@
+最简单的mybatis项目，不包括spring整合。
