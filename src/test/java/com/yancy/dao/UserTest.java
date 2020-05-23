@@ -4,8 +4,6 @@ import com.yancy.entity.User;
 import com.yancy.utils.MybatisUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
-
-import javax.naming.event.ObjectChangeListener;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
