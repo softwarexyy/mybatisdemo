@@ -4,8 +4,21 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yancy.dao.UserMapper">
 
-    <select id="selectUser" resultType="com.yancy.entity.User">
+    <select id="selectUser" resultType="user">
         select * from USER;
     </select>
 
+    <!-- 模糊查询 -->
+    <select id="selectUserByLike" resultType="com.yancy.entity.User">
+        select * from USER where name like "%"#{paramForName}"%";
+    </select>
+
+    <insert id="addUser" parameterType="com.yancy.entity.User">
+        insert into USER(NAME, AGE) values (#{name}, #{age})
+    </insert>
+
+    <!-- 使用map作为参数时，sql语句中的各字段使用map的key作为参数名 -->
+    <insert id="addUserByMap" parameterType="map">
+        insert into USER(NAME, AGE) values (#{userName}, #{userAge})
+    </insert>
 </mapper>

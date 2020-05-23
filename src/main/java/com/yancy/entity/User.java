@@ -40,4 +40,12 @@ public class User {
                 ", age=" + age +
                 '}';
     }
+
+    public User(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public User() {
+    }
 }
