@@ -12,4 +12,5 @@ public interface UserMapper {
     public int addUser(User user);
     public int addUserByMap(Map<String, Object> map);   // 使用map传递参数
     public List<User> selectUserByLike(String paramForName);   // 根据param模糊查询姓名
+    public List<User> selectUserByLimit(Map<String, Integer> map);  // 使用limit语句分页
 }

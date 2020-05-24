@@ -70,4 +70,20 @@ public class UserTest {
         sqlSession.close();
     }
 
+    @Test
+    public void testSelectByLimit() {
+        SqlSession sqlSession = MybatisUtils.getSqlSession();
+        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+
+        Map<String, Integer> map = new HashMap<String, Integer>();
+        map.put("startIndex", 2);
+        map.put("pageSize", 2);
+        List<User> users = userMapper.selectUserByLimit(map);
+
+        for (User user : users) {
+            System.out.println(user);
+        }
+        sqlSession.close();
+    }
+
 }
