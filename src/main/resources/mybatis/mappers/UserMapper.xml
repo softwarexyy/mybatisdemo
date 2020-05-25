@@ -16,7 +16,7 @@
         select * from USER;
     </select>
 
-    <!-- 模糊查询 -->
+    <!-- 模糊查询，直接硬拼接 -->
     <select id="selectUserByLike" resultType="user">
         select * from USER where name like "%"#{paramForName}"%";
     </select>
