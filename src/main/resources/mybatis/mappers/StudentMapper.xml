@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yancy.dao.StudentMapper">
+
+    <!-- ================= 方式一 按照结果取多对一查询结果，类比 sql联合查询 ======================== -->
+    <!-- 思路：
+            （1）通过sql语句一次查出结果；(注意需要对查询结果字段起别名)
+            （2）通过association指明对象类型的字段的映射关系
+    -->
+    <resultMap id="stuResMap" type="com.yancy.entity.Student">
+        <!-- column代表数据库表字段 property代表实体类属性，只需声明名称不一样的列，这里都一致、只是示例一下而已 -->
+        <result column="sid" property="id"/>
+        <result column="sname" property="name"/>
+        <association property="teacher" javaType="com.yancy.entity.Teacher">
+            <result column="tname" property="name"/>
+            <result column="tid" property="id"/>
+        </association>
+    </resultMap>
+
+    <select id="selectStudent" resultMap="stuResMap">
+        select
+            s.id as sid,
+            s.name as sname,
+            t.id as tid,
+            t.name as tname
+        from
+            student s, teacher t
+        where
+            s.tid = t.id;
+    </select>
+
+
+    <!-- ================= 方式二 按照查询语句取多对一查询结果 类比 sql子查询 ======================== -->
+    <!-- 思路：
+        （1） 首先，两步查询，先查学生，由学生表的sid列查询教师表，因此是两个select，对应下面的selectStudent2 和 selectTeacher2
+        （2） 从第一步查询 到 第二步查询， 中间由一个结果映射map表述， 对应此处stuTeaRes
+        （3） stuTeaRes中，通过association标签、表明结果集中包含Teacher类型的对象，并通过select指明查询语句、进行子查询
+    -->
+    <select id="selectStudent2" resultMap="stuTeaRes">
+        select * from student;
+    </select>
+    <resultMap id="stuTeaRes" type="com.yancy.entity.Student">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <association property="teacher" column="tid" javaType="com.yancy.entity.Teacher" select="selectTeacher2"/>
+    </resultMap>
+
+    <select id="selectTeacher2" resultType="com.yancy.entity.Teacher">
+        select * from teacher where id=#{id}
+    </select>
+
+</mapper>
