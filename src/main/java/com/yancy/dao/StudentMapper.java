@@ -5,7 +5,7 @@ import com.yancy.entity.Student;
 import java.util.List;
 
 /**
- * dao层数据操作
+ * dao层数据操作、多对一
  */
 public interface StudentMapper {
     public List<Student> selectStudent();

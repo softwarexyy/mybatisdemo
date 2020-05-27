@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yancy.dao.StudentMapper2">
+
+    <!-- （1） 根据一次性sql查询结果统一组装，使用collection标签对应包含的多个对象 -->
+    <resultMap id="stResMap" type="com.yancy.entity.Teacher2">
+        <result property="id" column="tid"/>
+        <result property="name" column="tname"/>
+        <collection property="students" ofType="com.yancy.entity.Student2"> <!-- ofType指明List对象内部泛型类型 -->
+            <result property="id" column="sid"/>
+            <result property="name" column="sname"/>
+            <result property="tid" column="tid"/>
+        </collection>
+    </resultMap>
+    <select id="getTeachers" resultMap="stResMap">
+        select t.id as tid, t.name as tname, s.id as sid, s.name as sname
+        from teacher t, student s
+        where t.id=s.tid and t.id=#{tid};
+    </select>
+
+
+
+    <!-- (2) 根据两次查询sql，连接两次查询结果 -->
+    <select id="getTeachers2" resultMap="stResMap2">
+        select * from teacher where id=#{tid}
+    </select>
+    <resultMap id="stResMap2" type="com.yancy.entity.Teacher2">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <!-- 以下column列中标识了以什么字段为条件查询另一张表数据 -->
+        <collection property="students" column="id" javaType="ArrayList" ofType="com.yancy.entity.Student2" select="getStudentsByTeacher"/>
+    </resultMap>
+    <select id="getStudentsByTeacher" resultType="com.yancy.entity.Student2">
+        select * from student where tid=#{tid}
+    </select>
+
+</mapper>

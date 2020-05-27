@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class StudnetTest {
+public class StudentTest {
 
     @Test
     public void testSelect() {
