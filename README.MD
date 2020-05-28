@@ -1,4 +1,8 @@
-**注：最简单的mybatis项目，不包括spring整合**
+**注：最简单的mybatis项目，不包括spring整合**  
+本例包含以下几种使用情形：  
+（1） User/UserMapper :一对一简单的表查询；  
+（2） Students/Teacher/StudentMapper : 多对一查询；  
+（3） Student2/Teacher2/StudentMapper2: 一对多查询。  
 
 # Mybatis使用过程：
 (1) 由SqlSessionFactoryBuild生成 SqlSessionFactory对象(全局、单例)；  
