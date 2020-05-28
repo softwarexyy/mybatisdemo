@@ -13,12 +13,14 @@
     </select>
 
     <select id="selectByAuthorAndViews" parameterType="map" resultType="com.yancy.entity.Blog">
-        select * from blog where 1=1
-        <if test="author != null and author != ''">
-            and author=#{author}
-        </if>
-        <if test="views != null and views !=''">
-            and views>#{views}
-        </if>
+        select * from blog
+        <where>
+            <if test="author != null and author != ''">
+                and author=#{author}
+            </if>
+            <if test="views != null and views !=''">
+                and views>#{views}
+            </if>
+        </where>
     </select>
 </mapper>
