@@ -23,4 +23,22 @@
             </if>
         </where>
     </select>
+
+    <!-- 使用choose when语句时，第一个符合条件的语句执行，之后的不会再执行 -->
+    <select id="selectByChoose" parameterType="map" resultType="com.yancy.entity.Blog">
+        select * from blog
+        <where>
+            <choose>
+                <when test="author!=null">
+                    author=#{author}
+                </when>
+                <when test="views!=null">
+                    and views>#{views}
+                </when>
+                <otherwise>
+                    and title like '%博客%'
+                </otherwise>
+            </choose>
+        </where>
+    </select>
 </mapper>

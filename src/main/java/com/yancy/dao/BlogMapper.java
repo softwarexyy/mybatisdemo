@@ -10,4 +10,5 @@ public interface BlogMapper {
     public int addBlog(Blog blog);
     public List<Blog> selectAllBlogs();
     public List<Blog> selectByAuthorAndViews(Map<String, Object> condition);
+    public List<Blog> selectByChoose(Map<String, Object> condition);
 }

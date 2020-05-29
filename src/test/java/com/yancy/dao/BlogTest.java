@@ -70,4 +70,24 @@ public class BlogTest {
         // 3 关闭session
         sqlSession.close();
     }
+
+    @Test
+    public void testSelectChoose() {
+        // 1 获取 SqlSession对象
+        SqlSession sqlSession = MybatisUtils.getSqlSession();
+
+        // 2 执行sql
+        BlogMapper blogMapper = sqlSession.getMapper(BlogMapper.class);
+        Map<String, Object> conditionMap = new HashMap<String, Object>();   // 查询条件
+        conditionMap.put("views", 100);
+//        conditionMap.put("author", "Yancy");
+        List<Blog> blogs = blogMapper.selectByChoose(conditionMap);
+
+        for (Blog blog : blogs) {
+            System.out.println(blog);
+        }
+
+        // 3 关闭session
+        sqlSession.close();
+    }
 }
