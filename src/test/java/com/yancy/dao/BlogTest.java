@@ -7,10 +7,7 @@ import com.yancy.utils.MybatisUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class BlogTest {
     @Test
@@ -82,6 +79,32 @@ public class BlogTest {
         conditionMap.put("views", 100);
 //        conditionMap.put("author", "Yancy");
         List<Blog> blogs = blogMapper.selectByChoose(conditionMap);
+
+        for (Blog blog : blogs) {
+            System.out.println(blog);
+        }
+
+        // 3 关闭session
+        sqlSession.close();
+    }
+
+    /**
+     * 测试foreach的动态sql
+     */
+    @Test
+    public void testSelectForeach() {
+        // 1 获取 SqlSession对象
+        SqlSession sqlSession = MybatisUtils.getSqlSession();
+
+        // 2 执行sql
+        BlogMapper blogMapper = sqlSession.getMapper(BlogMapper.class);
+        Map<String, Object> conditionMap = new HashMap<String, Object>();   // 查询条件
+        ArrayList<Integer> ids = new ArrayList<>();
+        ids.add(1);
+        ids.add(2);
+        conditionMap.put("ids", ids);
+
+        List<Blog> blogs = blogMapper.selectByForeach(conditionMap);
 
         for (Blog blog : blogs) {
             System.out.println(blog);

@@ -41,4 +41,16 @@
             </choose>
         </where>
     </select>
+
+    <!-- 使用foreach语句进行一个集合范围遍历， open表示集合开始标识，close代表集合结束标识， seperator代表分隔符 -->
+    <select id="selectByForeach" parameterType="map" resultType="com.yancy.entity.Blog">
+        <!-- select * from blog where (id=.. or id=.. or id=..) -->
+        select * from blog
+        <where>
+            <foreach collection="ids" item="id" open="(" close=")" separator="or">
+                id=#{id}
+            </foreach>
+        </where>
+    </select>
+
 </mapper>

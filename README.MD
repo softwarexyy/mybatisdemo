@@ -3,7 +3,7 @@
 （1） User/UserMapper :一对一简单的表查询；  
 （2） Students/Teacher/StudentMapper : 多对一查询；  
 （3） Student2/Teacher2/StudentMapper2: 一对多查询；  
-（4） Blog/BlogMappaer： 动态sql的使用。  
+（4） Blog/BlogMappaer： 动态sql的使用(if  choose/when  foreach)。  
 
 # Mybatis使用过程：
 (1) 由SqlSessionFactoryBuild生成 SqlSessionFactory对象(全局、单例)；  
