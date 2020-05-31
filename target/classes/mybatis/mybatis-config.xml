@@ -7,6 +7,9 @@
     <!-- 属性文件设置 -->
     <properties resource="mybatis/db.properties"/>
 
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/> <!-- 开启驼峰命名变量和下划线字段的映射 -->
+    </settings>
     <!-- 别名设置 -->
     <typeAliases>
         <typeAlias type="com.yancy.entity.User" alias="user"></typeAlias>
@@ -26,6 +29,9 @@
 
     <mappers>
         <mapper resource="mybatis/mappers/UserMapper.xml"/>
+        <mapper resource="mybatis/mappers/StudentMapper.xml"/>
+        <mapper resource="mybatis/mappers/StudentMapper2.xml"/>
+        <mapper resource="mybatis/mappers/BlogMapper.xml"/>
     </mappers>
 
 </configuration>
