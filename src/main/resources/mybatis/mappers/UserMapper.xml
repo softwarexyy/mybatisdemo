@@ -34,6 +34,7 @@
         select * from USER limit #{startIndex}, #{pageSize}
     </select>
 
+    <!-- 测试一级缓存 -->
     <select id="testOneCache" resultType="user">
         select * from user where id=#{id}
     </select>
