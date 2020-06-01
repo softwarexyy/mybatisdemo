@@ -8,7 +8,9 @@
     <properties resource="mybatis/db.properties"/>
 
     <settings>
+        <setting name="logImpl" value="STDOUT_LOGGING"/>    <!-- 日志实现，打印mybatis的sql语句 -->
         <setting name="mapUnderscoreToCamelCase" value="true"/> <!-- 开启驼峰命名变量和下划线字段的映射 -->
+        <setting name="cacheEnabled" value="true"/>         <!-- 开启二级缓存 -->
     </settings>
     <!-- 别名设置 -->
     <typeAliases>

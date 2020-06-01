@@ -86,4 +86,23 @@ public class UserTest {
         sqlSession.close();
     }
 
+
+    @Test
+    public void testOneCache(){
+        SqlSession sqlSession = MybatisUtils.getSqlSession();
+        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+
+        User user = userMapper.testOneCache(1);
+        System.out.println(user);
+
+        // 如果两次相同之间有任何update/insert操作，则第二次查询不会使用一级缓存
+//        userMapper.addUser(new User("hello1", 12));
+
+        System.out.println("--------------------");
+        User user1 = userMapper.testOneCache(1);
+        System.out.println(user1);
+
+        sqlSession.close();
+    }
+
 }

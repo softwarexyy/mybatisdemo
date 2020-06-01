@@ -33,4 +33,8 @@
     <select id="selectUserByLimit" resultType="user" parameterType="map">
         select * from USER limit #{startIndex}, #{pageSize}
     </select>
+
+    <select id="testOneCache" resultType="user">
+        select * from user where id=#{id}
+    </select>
 </mapper>
