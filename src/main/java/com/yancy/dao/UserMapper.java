@@ -15,4 +15,5 @@ public interface UserMapper {
     public List<User> selectUserByLimit(Map<String, Integer> map);  // 使用limit语句分页
 
     public User testOneCache(int id);     // 测试一级缓存（根据id查User）
+    public User testTwoCache(int id);       // 测试二级缓存（根据id查user）
 }

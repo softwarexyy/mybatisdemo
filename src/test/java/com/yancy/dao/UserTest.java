@@ -87,11 +87,15 @@ public class UserTest {
     }
 
 
+    /**
+     * 测试一级缓存
+     */
     @Test
     public void testOneCache(){
         SqlSession sqlSession = MybatisUtils.getSqlSession();
         UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
 
+        System.out.println("测试一级缓存： ");
         User user = userMapper.testOneCache(1);
         System.out.println(user);
 
@@ -102,7 +106,52 @@ public class UserTest {
         User user1 = userMapper.testOneCache(1);
         System.out.println(user1);
 
+        System.out.println("--------------------");
+        User user2 = userMapper.testOneCache(1);
+        System.out.println(user2);
+
         sqlSession.close();
+
+        // 以下测试二级缓存
+        System.out.println("测试二级缓存： ");
+        // sqlSession关闭后，重新开启sqlSession，此时一级缓存已消失，内容移至二级缓存，故以下命中二级缓存
+        sqlSession = MybatisUtils.getSqlSession();  // 重新获取sqlsession
+        userMapper = sqlSession.getMapper(UserMapper.class);
+        User user3 = userMapper.testOneCache(1);
+        System.out.println(user3);
+        sqlSession.close();
+
     }
 
+    /**
+     * 测试二级缓存
+     */
+    @Test
+    public void testTwoCache() {
+        SqlSession sqlSession = MybatisUtils.getSqlSession();
+        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+
+        System.out.println("第一次查询：");
+        User user = userMapper.testTwoCache(1);
+        System.out.println(user);
+        sqlSession.close();
+
+        /**
+         * （1）二级缓存作用域是一个namespace
+         * （2）sqlSession关闭后，一级缓存中的内容会转移到二级缓存中
+         */
+        System.out.println("第二次查询：");
+        sqlSession = MybatisUtils.getSqlSession();  // 重新获取sqlsession
+        userMapper = sqlSession.getMapper(UserMapper.class);
+        User user1 = userMapper.testTwoCache(1);
+        System.out.println(user1);
+        sqlSession.close();
+
+        System.out.println("第三次查询：");
+        sqlSession = MybatisUtils.getSqlSession();  // 重新获取sqlsession
+        userMapper = sqlSession.getMapper(UserMapper.class);
+        User user2 = userMapper.testTwoCache(1);
+        System.out.println(user1);
+        sqlSession.close();
+    }
 }

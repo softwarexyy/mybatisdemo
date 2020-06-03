@@ -4,6 +4,14 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yancy.dao.UserMapper">
 
+    <!-- 二级缓存：
+        （1）同一个namespace，同一个二级缓存；
+        （2）sqlSession关闭后、一级缓存消失，其内容转移到二级缓存中 -->
+    <cache eviction="FIFO"
+            flushInterval="60000"
+            size="512"
+            readOnly="true"/>
+
     <!-- 结果集映射，JavaBean和数据表字段名称不一致的时候用 -->
     <resultMap id="UserResultMap" type="user">
         <!-- column代表数据库表字段 property代表实体类属性，只需声明名称不一样的列，这里都一致、只是示例一下而已 -->
@@ -36,6 +44,11 @@
 
     <!-- 测试一级缓存 -->
     <select id="testOneCache" resultType="user">
-        select * from user where id=#{id}
+        select * from USER where id=#{id}
+    </select>
+
+    <!-- 测试二级缓存-->
+    <select id="testTwoCache" resultType="user">
+        select * from USER where id=#{id}
     </select>
 </mapper>

@@ -1,9 +1,11 @@
 package com.yancy.entity;
 
+import java.io.Serializable;
+
 /**
  * 人员信息
  */
-public class User {
+public class User implements Serializable {
     private int id;
     private String name;
     private int age;
