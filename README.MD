@@ -26,4 +26,4 @@
     （1）二级缓存默认是关闭的；
     （2）开启方法: mybatis-config.xml的settings标签的配置项cacheEnabled设置为true；
     （3）二级缓存作用域是 *Mapper.xml中的标注的namespace，一个namespace一个二级缓存；
-    （4）注意需要实现操作POJO对象的实例化，否则可能报错。
+    （4）注意需要实现操作POJO对象的序列化，否则可能报错。
